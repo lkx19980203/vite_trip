@@ -28,6 +28,12 @@ const itemClick = (index, item) => {
   currentIndex.value = index;
   router.push(item.path);
 };
+// 没测试
+// watch(route, (newVal) => {
+//   const index = tabbarData.findIndex((item) => item.path === newVal.path);
+//   if (index === -1) return;
+//   currentIndex.value = index;
+// });
 </script>
 <style lang="less" scoped>
 .tab-bar {

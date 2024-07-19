@@ -1,10 +1,24 @@
 :root {
   --primary-color: #ff9854;
+  --line-color:#e5e5e5;
 
   /* 全局修改: 任何地方只要用到-van-tabbar-item-icon-size都会被修改掉 */
   /* --van-tabbar-item-icon-size: 30px !important; */
+  --theme-linear-gradient:linear-gradient(90deg, #fa8c1d, #fcaf3f);
+  --van-search-left-icon-color:var(--primary-color) !important;
 }
 
 body {
   font-size: 14px;
+}
+.top-page {
+  height: 100vh;
+  position: relative;
+  z-index: 9;
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+.bottom-gray-line {
+  border-bottom: 1px solid var(--line-color);
 }

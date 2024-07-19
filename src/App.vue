@@ -2,12 +2,15 @@
   <div class="app">
     <router-view></router-view>
 
-    <tab-bar />
+    <!-- <tab-bar /> -->
+    <tab-bar v-if="!route.meta.hideTabBar" />
   </div>
 </template>
 
 <script setup>
 import TabBar from '@/components/TabBar/index.vue';
+import { useRoute } from 'vue-router';
+const route = useRoute();
 </script>
 
 <style scoped></style>
