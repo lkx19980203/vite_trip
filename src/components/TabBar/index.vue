@@ -1,11 +1,6 @@
 <template>
   <div class="tab-bar">
-    <van-tabbar
-      route
-      v-model="currentIndex"
-      active-color="#ff9854"
-      @change="onChange"
-    >
+    <van-tabbar route v-model="currentIndex" active-color="#ff9854">
       <template v-for="(item, index) in tabbarData">
         <van-tabbar-item :to="item.path">
           <template #icon="props">
@@ -42,11 +37,18 @@ const route = useRoute();
 
 const currentIndex = ref(0);
 
-watch(route, (newVal) => {
-  const index = tabbarData.findIndex((item) => item.path === newVal.path);
-  if (index === -1) return;
-  currentIndex.value = index;
-});
+watch(
+  route,
+  (newVal) => {
+    console.log(newVal);
+    const index = tabbarData.findIndex((item) => item.path === newVal.path);
+    if (index === -1) return;
+    currentIndex.value = index;
+  }
+  // {
+  //   immediate: true,
+  // }
+);
 </script>
 <style lang="less" scoped>
 .tab-bar {

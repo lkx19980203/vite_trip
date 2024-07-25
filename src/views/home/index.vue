@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="homeRef">
     <home-navbar />
 
     <div class="banner">
@@ -14,8 +14,11 @@
     <home-content />
   </div>
 </template>
+<!-- <script>
+export default { name: 'Home' };
+</script> -->
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, onActivated, ref, watch } from 'vue';
 import HomeNavbar from './cnps/home-navbar.vue';
 import HomeSearchBox from './cnps/home-search-box.vue';
 import HomeCategories from './cnps/home-categories.vue';
@@ -25,12 +28,16 @@ import useHomeStore from '@/stores/modules/home';
 
 import useScroll from '@/hooks/useScroll';
 
+defineOptions({ name: 'Home' });
+
 const homeStore = useHomeStore();
 homeStore.fetchHotSuggestData();
 homeStore.fetchCategoryData();
 homeStore.fetchHouseData();
 
+const homeRef = ref();
 // 加载更多
+// const { isReachBottom, scrollTop } = useScroll(homeRef);
 const { isReachBottom, scrollTop } = useScroll();
 
 watch(isReachBottom, (newValue) => {
@@ -50,9 +57,17 @@ watch(isReachBottom, (newValue) => {
 const showSearch = computed(() => {
   return scrollTop.value > 350;
 });
+
+// 记录滚动位置
+// onActivated(() => {
+//   homeRef.value?.scrollTo({ top: scrollTop.value });
+// });
 </script>
 <style lang="less" scoped>
 .home {
+  // height: 100vh;
+  // overflow-y: auto;
+  // box-sizing: border-box;
   padding-bottom: 60px;
 }
 .banner {

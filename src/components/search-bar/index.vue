@@ -20,15 +20,18 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  startDateStr: {
-    type: String,
-    default: '',
-  },
-  endDateStr: {
-    type: String,
-    default: '',
-  },
+import { formatMonthDay } from '@/utils/format_date';
+import useMainStore from '@/stores/modules/main';
+import { computed, toRefs } from 'vue';
+
+const mainStore = useMainStore();
+const { startDate, endDate } = toRefs(mainStore);
+
+const startDateStr = computed(() => {
+  return formatMonthDay(startDate.value, 'MM.DD');
+});
+const endDateStr = computed(() => {
+  return formatMonthDay(endDate.value, 'MM.DD');
 });
 </script>
 

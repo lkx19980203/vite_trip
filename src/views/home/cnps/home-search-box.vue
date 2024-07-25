@@ -11,14 +11,14 @@
       <div class="start">
         <div class="date">
           <span class="tip">入住</span>
-          <span class="time">{{ startDate }}</span>
+          <span class="time">{{ startDateStr }}</span>
         </div>
       </div>
       <div class="stay">共{{ stayDay }}晚</div>
       <div class="end">
         <div class="date">
           <span class="tip">离店</span>
-          <span class="time">{{ endDate }}</span>
+          <span class="time">{{ endDateStr }}</span>
         </div>
       </div>
     </div>
@@ -61,8 +61,9 @@
 import { useRouter } from 'vue-router';
 import useCityStore from '@/stores/modules/city';
 import useHomeStore from '@/stores/modules/home';
+import useMainStore from '@/stores/modules/main';
 
-import { ref, toRefs } from 'vue';
+import { computed, ref, toRefs } from 'vue';
 import { formatMonthDay, getDiffDays } from '@/utils/format_date';
 const rouetr = useRouter();
 
@@ -87,17 +88,24 @@ const positionClick = () => {
 const cityStore = useCityStore();
 const { currentCity } = toRefs(cityStore);
 
-const nowDate = new Date();
-const startDate = ref(formatMonthDay(nowDate));
-const newData = new Date().setDate(nowDate.getDate() + 1);
-const endDate = ref(formatMonthDay(newData));
-const stayDay = ref(getDiffDays(nowDate, newData));
+// 日期范围的处理
+const mainStore = useMainStore();
+const { startDate, endDate } = toRefs(mainStore);
+const startDateStr = computed(() => {
+  return formatMonthDay(startDate.value);
+});
+const endDateStr = computed(() => {
+  return formatMonthDay(endDate.value);
+});
+const stayDay = computed(() => {
+  return getDiffDays(startDate.value, endDate.value);
+});
 
 const showCalendar = ref(false);
 const onConfirm = (values) => {
-  startDate.value = formatMonthDay(values[0]);
-  endDate.value = formatMonthDay(values[1]);
-  stayDay.value = getDiffDays(values[0], values[1]);
+  startDate.value = values[0];
+  endDate.value = values[1];
+  // stayDay.value = getDiffDays(values[0], values[1]);
   showCalendar.value = false;
 };
 

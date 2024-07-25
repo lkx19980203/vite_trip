@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="btn">sasas</button>
+    <script>
+      const btnEl = document.querySelector('.btn');
+      let currentValue = 0;
+      const values = [100, 300, 500, 800, 1000];
+
+      btnEl.onclick = () => {
+        currentValue = Math.floor(Math.random() * 1600);
+        findIndex(currentValue);
+      };
+
+      function findIndex(currentValue) {
+        console.log(currentValue);
+        let index = values.length - 1;
+        for (let i = 0; i < values.length; i++) {
+          if (values[i] > currentValue) {
+            index = i - 1;
+            break;
+          }
+        }
+        if (index === -1) return;
+
+        console.log(index);
+      }
+
+      // if (index === -1) return;
+    </script>
+  </body>
+</html>

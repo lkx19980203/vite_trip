@@ -7,10 +7,12 @@
         <house-item-v3
           v-if="item.discoveryContentType === 3"
           :item-data="item.data"
+          @click="itemClick(item.data)"
         />
         <house-item-v9
           v-else-if="item.discoveryContentType === 9"
           :item-data="item.data"
+          @click="itemClick(item.data)"
         />
       </template>
     </div>
@@ -21,8 +23,15 @@ import HouseItemV3 from '@/components/house-item-v3/index.vue';
 import HouseItemV9 from '@/components/house-item-v9/index.vue';
 import useHomeStore from '@/stores/modules/home';
 import { toRefs } from 'vue';
+
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const homeStore = useHomeStore();
 const { houseList } = toRefs(homeStore);
+
+const itemClick = (item) => {
+  router.push(`/detail/${item.houseId}`);
+};
 </script>
 <style lang="less" scoped>
 .content {

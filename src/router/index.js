@@ -22,6 +22,9 @@ const router = createRouter({
     {
       path: '/message',
       component: () => import('@/views/message/index.vue'),
+      meta: {
+        hideTabBar: true,
+      },
     },
     {
       path: '/city',
@@ -37,6 +40,14 @@ const router = createRouter({
         hideTabBar: true,
       },
     },
+    {
+      path: '/detail/:id',
+      component: () => import('@/views/detail/index.vue'),
+      meta: {
+        hideTabBar: true,
+      },
+    },
+
   ],
 });
 
